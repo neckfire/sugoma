@@ -52,39 +52,44 @@ func _input(event):
 				flashlight.show()
 
 func _physics_process(delta):
-	var moving = false
-	# Add the gravity. Pulls value from project settings.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
+	if $"../tasks/task1/task1panel".visible==false:
+		var moving = false
+		# Add the gravity. Pulls value from project settings.
+		if not is_on_floor():
+			velocity.y -= gravity * delta
 
-	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-	
-	# This just controls acceleration. Don't touch it.
-	var accel
-	if dir.dot(velocity) > 0:
-		accel = ACCEL
-		moving = true
-	else:
-		accel = DEACCEL
-		moving = false
+		# Handle Jump.
+		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
+		
+		# This just controls acceleration. Don't touch it.
+		var accel
+		if dir.dot(velocity) > 0:
+			accel = ACCEL
+			moving = true
+		else:
+			accel = DEACCEL
+			moving = false
+		if Input.is_action_just_pressed("ui_accept"):
+			var pointed = $rotation_helper/Camera3D/RayCast3D.get_collider()
+			print(pointed)
+			if pointed == $"../tasks/task1/task1":
+				$"../tasks/task1/task1panel".visible=true
 
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with a custom keymap depending on your control scheme. These strings default to the arrow keys layout.
+		var input_dir = Input.get_vector("left", "right", "up", "down")
+		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * accel * delta
+		if Input.is_key_pressed(KEY_SHIFT):
+			direction = direction * SPRINT_MULT
+		else:
+			pass
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with a custom keymap depending on your control scheme. These strings default to the arrow keys layout.
-	var input_dir = Input.get_vector("left", "right", "up", "down")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() * accel * delta
-	if Input.is_key_pressed(KEY_SHIFT):
-		direction = direction * SPRINT_MULT
-	else:
-		pass
+		if direction:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.z = move_toward(velocity.z, 0, SPEED)
 
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-
-	move_and_slide()
+		move_and_slide()

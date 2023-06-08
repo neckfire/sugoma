@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhlse04fo1gao"]
+
+[sub_resource type="TextMesh" id="TextMesh_er5pm"]
+text = "TASK"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4a3aa"]
+size = Vector3(0.25, 0.25, 0.25)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="task1" type="MeshInstance3D" parent="."]
+mesh = SubResource("TextMesh_er5pm")
+skeleton = NodePath("task1")
+
+[node name="task1" type="StaticBody3D" parent="task1"]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="task1/task1"]
+shape = SubResource("BoxShape3D_4a3aa")
+
+[node name="task1panel" type="Panel" parent="task1"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -206.5
+offset_top = -93.5
+offset_right = 206.5
+offset_bottom = 93.5
+grow_horizontal = 2
+grow_vertical = 2

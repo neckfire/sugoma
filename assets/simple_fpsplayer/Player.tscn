@@ -1,9 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgpjxoygnvyy4"]
+[gd_scene load_steps=6 format=3 uid="uid://dgpjxoygnvyy4"]
 
 [ext_resource type="Script" path="res://assets/simple_fpsplayer/Player.gd" id="1_1fhis"]
 [ext_resource type="PackedScene" uid="uid://rw7gdui8lu3n" path="res://addons/EasyMenus/Scenes/pause_menu.tscn" id="2_jk0cf"]
+[ext_resource type="Script" path="res://assets/simple_fpsplayer/MeshInstance3D.gd" id="3_c8ied"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_euj4i"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_twbd0"]
+radius = 0.05
+height = 0.1
 
 [node name="Player" type="CharacterBody3D"]
 disable_mode = 2
@@ -28,3 +33,13 @@ light_bake_mode = 0
 spot_range = 10.0
 spot_angle = 15.0
 spot_angle_attenuation = 1.56917
+
+[node name="RayCast3D" type="RayCast3D" parent="rotation_helper/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, 3, 0)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rotation_helper/Camera3D/RayCast3D"]
+mesh = SubResource("SphereMesh_twbd0")
+script = ExtResource("3_c8ied")
