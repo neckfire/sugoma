@@ -12,12 +12,16 @@ config_version=5
 
 config/name="sugoma"
 run/main_scene="res://addons/EasyMenus/Scenes/main_menu.tscn"
-config/features=PackedStringArray("4.0", "Mobile")
+config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://sugoma/icon.svg"
 
 [autoload]
 
 GlootAutoload="*res://addons/gloot/gloot_autoload.gd"
+
+[dotnet]
+
+project/assembly_name="sugoma"
 
 [input]
 

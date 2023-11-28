@@ -20,7 +20,7 @@ gradient = SubResource("Gradient_eavng")
 fill_to = Vector2(0.951389, 0.34375)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0oiej"]
-albedo_color = Color(0.0627451, 0.0627451, 0.0627451, 1)
+albedo_color = Color(0.105882, 0.105882, 0.105882, 1)
 albedo_texture = SubResource("GradientTexture2D_cgdy7")
 
 [sub_resource type="PrismMesh" id="PrismMesh_kq1me"]
@@ -102,3 +102,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_0oiej")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="wall_triangle/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_4o1m7")
+
+[node name="walltop" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_1let1")
+surface_material_override/0 = SubResource("StandardMaterial3D_0oiej")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="walltop"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walltop/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_asebh")
